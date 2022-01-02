@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: warning-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/warning_system?useUnicode=true&characterEncoding=UTF-8&autoConnect=true
+    username: root
+    password: jinzhaosn123
+
+
