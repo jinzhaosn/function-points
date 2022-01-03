@@ -16,7 +16,6 @@
 
 package com.github.jinzhaosn.warning.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.jinzhaosn.stream.Flow;
 import com.github.jinzhaosn.warning.dao.WarningRecordMapper;
@@ -26,13 +25,11 @@ import com.github.jinzhaosn.warning.service.IWarningRecordService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * .
@@ -56,7 +53,7 @@ public class WarningRecordService extends ServiceImpl<WarningRecordMapper, Warni
         logger.info("save warning records: [{}]", warningRecordDTOS);
         Optional<Boolean> result = Flow.choose().when(CollectionUtils.isEmpty(warningRecordDTOS))
                 .then(() -> false)
-                .otherwise(() -> saveBatch(WarningRecordDTO.batchTransformTo(warningRecordDTOS)))
+                .otherwise(() -> saveBatch(WarningRecordDTO.batchTransformFrom(warningRecordDTOS)))
                 .getResult(Boolean.class);
         return result.orElse(false);
     }

@@ -55,7 +55,7 @@ public class WarningRecordDTO extends WarningRecordEntity {
      * @param recordDTOS DTO列表
      * @return 警告记录实体
      */
-    public static List<WarningRecordEntity> batchTransformTo(List<WarningRecordDTO> recordDTOS) {
+    public static List<WarningRecordEntity> batchTransformFrom(List<WarningRecordDTO> recordDTOS) {
         if (CollectionUtils.isEmpty(recordDTOS)) {
             return Collections.emptyList();
         }
