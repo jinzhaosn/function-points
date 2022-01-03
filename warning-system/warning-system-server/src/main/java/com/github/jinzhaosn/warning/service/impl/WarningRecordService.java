@@ -41,7 +41,8 @@ import java.util.stream.Collectors;
  * @date 2022年01月03日
  */
 @Service
-public class WarningRecordService extends ServiceImpl<WarningRecordMapper, WarningRecordEntity> {
+public class WarningRecordService extends ServiceImpl<WarningRecordMapper, WarningRecordEntity>
+        implements IWarningRecordService {
     private static final Logger logger = LoggerFactory.getLogger(WarningRecordService.class);
 
     /**

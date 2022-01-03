@@ -1,4 +1,4 @@
-/*
+/**
  *    Copyright 2021-2022 jinzhaosn
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +16,8 @@
 
 package com.github.jinzhaosn.warning.service;
 
-import com.github.jinzhaosn.warning.model.dto.WarningRecordDTO;
-
-import java.util.List;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.jinzhaosn.warning.model.entity.WarningRecordEntity;
 
 /**
  * 警告记录服务接口
@@ -26,13 +25,6 @@ import java.util.List;
  * @auther 961374431@qq.com
  * @date 2022年01月03日
  */
-public interface IWarningRecordService {
+public interface IWarningRecordService extends IService<WarningRecordEntity> {
 
-    /**
-     * 保存警告记录
-     *
-     * @param warningRecordDTOS 警告记录DTO列表
-     * @return 更新条目
-     */
-    int saveWarningRecords(List<WarningRecordDTO> warningRecordDTOS);
 }

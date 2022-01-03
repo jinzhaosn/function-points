@@ -18,11 +18,10 @@ package com.github.jinzhaosn.warning.controller;
 
 import com.github.jinzhaosn.common.ResultVo;
 import com.github.jinzhaosn.warning.model.dto.WarningRecordDTO;
-import com.github.jinzhaosn.warning.service.impl.WarningRecordService;
+import com.github.jinzhaosn.warning.service.IWarningRecordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +38,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class WarningReceiveController {
     private static final Logger logger = LoggerFactory.getLogger(WarningReceiveController.class);
     @Autowired
-    WarningRecordService warningRecordService;
+    IWarningRecordService warningRecordService;
 
+    /**
+     * 保存警告记录成功
+     *
+     * @param recordDTO 警告记录
+     * @return 结果Vo
+     */
     @PostMapping("/warningRecord/save")
     public ResultVo<?> saveWarningRecord(@RequestBody WarningRecordDTO recordDTO) {
-
-        return ResultVo.success();
+        logger.info("save waring record: [{}]", recordDTO);
+        boolean saveResult = warningRecordService.save(recordDTO.toWarningRecordEntity());
+        return saveResult ? ResultVo.success() : ResultVo.fail();
     }
 }
