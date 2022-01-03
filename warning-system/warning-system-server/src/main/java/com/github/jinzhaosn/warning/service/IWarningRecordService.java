@@ -1,4 +1,4 @@
-/**
+/*
  *    Copyright 2021-2022 jinzhaosn
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,19 +14,25 @@
  *    limitations under the License.
  */
 
-package com.github.jinzhaosn.warning.dao;
+package com.github.jinzhaosn.warning.service;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.jinzhaosn.warning.model.entity.WarningRecordEntity;
-import org.springframework.stereotype.Repository;
+import com.github.jinzhaosn.warning.model.dto.WarningRecordDTO;
+
+import java.util.List;
 
 /**
- * 警告记录DAO
+ * 警告记录服务接口
  *
  * @auther 961374431@qq.com
- * @date 2022年01月02日
+ * @date 2022年01月03日
  */
-@Repository
-public interface WarningRecordMapper extends BaseMapper<WarningRecordEntity> {
+public interface IWarningRecordService {
 
+    /**
+     * 保存警告记录
+     *
+     * @param warningRecordDTOS 警告记录DTO列表
+     * @return 更新条目
+     */
+    int saveWarningRecords(List<WarningRecordDTO> warningRecordDTOS);
 }

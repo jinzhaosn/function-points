@@ -19,14 +19,19 @@
         <module>warning-system/warning-system-server</module>
         <module>warning-system/warning-system-client</module>
         <module>logger</module>
+        <module>web-common</module>
     </modules>
 
     <properties>
-        <spring-boot-version>2.6.2</spring-boot-version>
+        <spring.boot.version>2.6.2</spring.boot.version>
         <java.version>1.8</java.version>
-        <mybatis-plus-version>3.4.3.4</mybatis-plus-version>
-        <mysql-driver-version>8.0.27</mysql-driver-version>
-        <log4j2-version>2.17.1</log4j2-version>
+        <mybatis.plus.version>3.4.3.4</mybatis.plus.version>
+        <mysql.driver.version>8.0.27</mysql.driver.version>
+        <log4j2.version>2.17.1</log4j2.version>
+        <apache.commons.collections4.version>4.4</apache.commons.collections4.version>
+        <apache.commons.io.version>2.11.0</apache.commons.io.version>
+        <apache.commons.lang3.version>3.12.0</apache.commons.lang3.version>
+        <apache.commons.codec.version>1.15</apache.commons.codec.version>
     </properties>
 
     <dependencyManagement>
@@ -41,19 +46,19 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-driver-version}</version>
+                <version>${mysql.driver.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus-version}</version>
+                <version>${mybatis.plus.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter-test</artifactId>
-                <version>${mybatis-plus-version}</version>
+                <version>${mybatis.plus.version}</version>
             </dependency>
 
             <dependency>
@@ -66,29 +71,51 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-api</artifactId>
-                <version>${log4j2-version}</version>
+                <version>${log4j2.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
-                <version>${log4j2-version}</version>
+                <version>${log4j2.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-slf4j-impl</artifactId>
-                <version>${log4j2-version}</version>
+                <version>${log4j2.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
-                <version>${spring-boot-version}</version>
+                <version>${spring.boot.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-starter-logging</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <!--apache 通用工具包-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${apache.commons.collections4.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${apache.commons.io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache.commons.lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${apache.commons.codec.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -150,7 +177,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot-version}</version>
+                    <version>${spring.boot.version}</version>
                     <configuration>
                         <excludes>
                             <exclude>

@@ -16,24 +16,13 @@
 
 package com.github.jinzhaosn.log;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.config.Configuration;
-import org.apache.logging.log4j.core.config.ConfigurationFactory;
-import org.apache.logging.log4j.core.config.ConfigurationSource;
-import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.context.logging.LoggingApplicationListener;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.GenericApplicationListener;
-import org.springframework.core.Ordered;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.env.ConfigurableEnvironment;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * log配置
@@ -43,7 +32,6 @@ import java.io.InputStream;
  */
 public class LogReconfigureListener implements GenericApplicationListener {
     private static final Class<?>[] EVENT_TYPES = {ApplicationEnvironmentPreparedEvent.class};
-    private static final String LOG4J_XML_FILE_PATH = "log4j2.xml";
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
@@ -52,38 +40,6 @@ public class LogReconfigureListener implements GenericApplicationListener {
             ConfigurableEnvironment environment = ((ApplicationEnvironmentPreparedEvent) event).getEnvironment();
             SpringContextHolder.setEnvironment(environment);
         }
-    }
-
-    public void reconfigureLogManager(ClassLoader classLoader) {
-        // 获取配置文件流
-        try (InputStream xmlInputStream = classLoader.getResourceAsStream(LOG4J_XML_FILE_PATH)) {
-            BufferedInputStream log4j2XmlBis = new BufferedInputStream(xmlInputStream);
-
-            int size = log4j2XmlBis.available();
-            byte[] buffer = new byte[size];
-            log4j2XmlBis.read(buffer, 0, size);
-
-            // 重新配置
-            reconfigureLogManager(buffer);
-        } catch (Exception exp) {
-            exp.printStackTrace();
-        }
-    }
-
-    public void reconfigureLogManager(byte[] configBytes) throws IOException {
-        // 创建XML配置解析
-        ConfigurationFactory configFactory = XmlConfigurationFactory.getInstance();
-        // 设置配置方式为XML
-        ConfigurationFactory.setConfigurationFactory(configFactory);
-
-        // 转换配置为配置源
-        ConfigurationSource configurationSource = new ConfigurationSource(new ByteArrayInputStream(configBytes));
-        // 获取日志环境
-        LoggerContext context = (LoggerContext) LogManager.getContext(false);
-        // 获取新的配置
-        Configuration configuration = configFactory.getConfiguration(context, configurationSource);
-        // 使用新配置配置日志
-        context.reconfigure(configuration);
     }
 
     @Override
