@@ -22,10 +22,13 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
-import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
+import org.springframework.boot.context.logging.LoggingApplicationListener;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.GenericApplicationListener;
+import org.springframework.core.Ordered;
 import org.springframework.core.ResolvableType;
+import org.springframework.core.env.ConfigurableEnvironment;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -39,15 +42,15 @@ import java.io.InputStream;
  * @date 2022年01月02日
  */
 public class LogReconfigureListener implements GenericApplicationListener {
-    private static final Class<?>[] EVENT_TYPES = {ApplicationStartedEvent.class};
-    private static final String LOG4J_XML_FILE_PATH = "log4j2-rc.xml";
+    private static final Class<?>[] EVENT_TYPES = {ApplicationEnvironmentPreparedEvent.class};
+    private static final String LOG4J_XML_FILE_PATH = "log4j2.xml";
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        if (event instanceof ApplicationStartedEvent) {
-            // 重新配置日志
-            ClassLoader classLoader = this.getClass().getClassLoader();
-            reconfigureLogManager(classLoader);
+        if (event instanceof ApplicationEnvironmentPreparedEvent) {
+            // 设置环境
+            ConfigurableEnvironment environment = ((ApplicationEnvironmentPreparedEvent) event).getEnvironment();
+            SpringContextHolder.setEnvironment(environment);
         }
     }
 
@@ -99,5 +102,10 @@ public class LogReconfigureListener implements GenericApplicationListener {
             }
         }
         return false;
+    }
+
+    @Override
+    public int getOrder() {
+        return LoggingApplicationListener.DEFAULT_ORDER - 1;
     }
 }
