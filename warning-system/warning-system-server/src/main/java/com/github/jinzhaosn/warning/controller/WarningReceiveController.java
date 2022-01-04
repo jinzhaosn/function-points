@@ -19,6 +19,7 @@ package com.github.jinzhaosn.warning.controller;
 import com.github.jinzhaosn.common.ResultVo;
 import com.github.jinzhaosn.warning.model.dto.WarningRecordDTO;
 import com.github.jinzhaosn.warning.model.entity.WarningRecordEntity;
+import com.github.jinzhaosn.warning.model.mapper.WarningRecordMapper;
 import com.github.jinzhaosn.warning.service.IWarningRecordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public class WarningReceiveController {
     @PostMapping("/warningRecord/save")
     public ResultVo<?> saveWarningRecords(@RequestBody List<WarningRecordDTO> recordList) {
         logger.info("save waring record: [{}]", recordList);
-        List<WarningRecordEntity> recordEntities = WarningRecordDTO.batchTransformFrom(recordList);
+        List<WarningRecordEntity> recordEntities = WarningRecordMapper.INSTANCE.toEntities(recordList);
         boolean saveResult = warningRecordService.saveBatch(recordEntities);
         return saveResult ? ResultVo.success() : ResultVo.fail();
     }

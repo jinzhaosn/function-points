@@ -14,26 +14,29 @@
  * limitations under the License.
  */
 
-package com.github.jinzhaosn.warning.service.impl;
+package com.github.jinzhaosn.warning.model.dto;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.jinzhaosn.warning.dao.WarningRecordMapper;
-import com.github.jinzhaosn.warning.model.entity.WarningRecordEntity;
-import com.github.jinzhaosn.warning.service.IWarningRecordService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
- * .
+ * 警告记录DTO
  *
  * @auther 961374431@qq.com
  * @date 2022年01月03日
  */
-@Service
-public class WarningRecordService extends ServiceImpl<WarningRecordMapper, WarningRecordEntity>
-        implements IWarningRecordService {
-    private static final Logger logger = LoggerFactory.getLogger(WarningRecordService.class);
-
+@Data
+public class WarningRecordDTO {
+    private Long id; // 主键
+    private String system; // 所属系统名称
+    private String serviceGroup; // 服务组
+    private String serviceName; // 服务名称
+    private String serviceUniqueCode; // 服务唯一编码
+    private String codeSourcePath; // 代码路径
+    private Integer warningLevel; // 警告等级
+    private LocalDate date; // 发生日期
+    private LocalDateTime createTime; // 记录时间
+    private String problemDesc; // 错误描述
 }
