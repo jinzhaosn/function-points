@@ -1,1 +1,3 @@
-rootDir: /tmp
+logRootDir: /tmp
+logging:
+  config: classpath:log4j2-srv.xml

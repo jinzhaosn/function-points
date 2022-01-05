@@ -19,6 +19,7 @@ package com.github.jinzhaosn.warning.model.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ import java.time.LocalDateTime;
  * @auther 961374431@qq.com
  * @date 2022年01月02日
  */
+@Data
 @TableName(value = "t_warning_record")
 public class WarningRecordEntity {
     @TableId(value = "id", type = IdType.AUTO)
