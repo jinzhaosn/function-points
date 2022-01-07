@@ -41,7 +41,7 @@ public class WarningRecordMapperTest {
     @Test
     public void recordMapperTest() {
         WarningRecordDTO recordDTO = new WarningRecordDTO();
-        recordDTO.setSystem("testSystem");
+        recordDTO.setSystemName("testSystem");
         recordDTO.setServiceGroup("testGroup");
         recordDTO.setServiceName("testService");
         recordDTO.setServiceUniqueCode("0981234576abc");

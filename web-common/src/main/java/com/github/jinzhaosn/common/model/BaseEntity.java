@@ -14,29 +14,20 @@
  * limitations under the License.
  */
 
-package com.github.jinzhaosn.warning.model.dto;
+package com.github.jinzhaosn.common.model;
 
 import lombok.Data;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 /**
- * 警告记录DTO
+ * 基础实体类
  *
  * @auther 961374431@qq.com
- * @date 2022年01月03日
+ * @date 2022年01月08日
  */
 @Data
-public class WarningRecordDTO {
-    private Long id; // 主键
-    private String systemName; // 所属系统名称
-    private String serviceGroup; // 服务组
-    private String serviceName; // 服务名称
-    private String serviceUniqueCode; // 服务唯一编码
-    private String codeSourcePath; // 代码路径
-    private Integer warningLevel; // 警告等级
-    private LocalDate date; // 发生日期
-    private LocalDateTime createTime; // 记录时间
-    private String problemDesc; // 错误描述
+public class BaseEntity {
+    private String createUser; // 创建人
+    private Long createTime; // 创建时间
+    private String lastUpdateBy; // 最后修改人
+    private Long lastUpdateTime; // 最后修改时间
 }

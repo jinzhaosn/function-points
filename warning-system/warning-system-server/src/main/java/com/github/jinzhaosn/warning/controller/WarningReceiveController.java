@@ -16,7 +16,7 @@
 
 package com.github.jinzhaosn.warning.controller;
 
-import com.github.jinzhaosn.common.ResultVo;
+import com.github.jinzhaosn.common.model.ResultVo;
 import com.github.jinzhaosn.warning.model.dto.WarningRecordDTO;
 import com.github.jinzhaosn.warning.model.entity.WarningRecordEntity;
 import com.github.jinzhaosn.warning.model.mapper.WarningRecordMapper;
@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 /**
  * 警告接受
@@ -44,17 +43,19 @@ public class WarningReceiveController {
     @Autowired
     IWarningRecordService warningRecordService;
 
-    /**
+    /**!
      * 保存警告记录成功
      *
      * @param recordList 警告记录
      * @return 结果Vo
      */
     @PostMapping("/warningRecord/save")
-    public ResultVo<?> saveWarningRecords(@RequestBody List<WarningRecordDTO> recordList) {
+    public ResultVo<?> saveWarningRecords(@RequestBody WarningRecordDTO recordList) {
         logger.info("save waring record: [{}]", recordList);
-        List<WarningRecordEntity> recordEntities = WarningRecordMapper.INSTANCE.toEntities(recordList);
-        boolean saveResult = warningRecordService.saveBatch(recordEntities);
+        // List<WarningRecordEntity> recordEntities = WarningRecordMapper.INSTANCE.toEntities(Collections.singletonList(recordList));
+        // boolean saveResult = warningRecordService.saveBatch(recordEntities);
+        WarningRecordEntity entity = WarningRecordMapper.INSTANCE.toEntity(recordList);
+        boolean saveResult = warningRecordService.save(entity);
         return saveResult ? ResultVo.success() : ResultVo.fail();
     }
 }

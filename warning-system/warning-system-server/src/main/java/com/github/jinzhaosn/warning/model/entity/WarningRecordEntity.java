@@ -35,13 +35,13 @@ import java.time.LocalDateTime;
 public class WarningRecordEntity {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id; // 主键
-    private String system; // 所属系统名称
+    private String systemName; // 所属系统名称
     private String serviceGroup; // 服务组
     private String serviceName; // 服务名称
     private String serviceUniqueCode; // 服务唯一编码
     private String codeSourcePath; // 代码路径
     private Integer warningLevel; // 警告等级
-    private LocalDate date; // 发生日期
+    private LocalDate occurDate; // 发生日期
     private LocalDateTime createTime; // 记录时间
     private String problemDesc; // 错误描述
 }

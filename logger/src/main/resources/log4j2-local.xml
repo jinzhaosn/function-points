@@ -61,7 +61,7 @@
             <appender-ref ref="Console"/>
         </logger>
         <!-- 设置org.springframework包下的日志只打印WARN及以上级别的日志 -->
-        <logger name="org.springframework" level="WARN" additivity="false">
+        <logger name="org.springframework" level="DEBUG" additivity="false">
             <appender-ref ref="Console"/>
         </logger>
         <!-- 设置打印sql语句配置结束 -->
