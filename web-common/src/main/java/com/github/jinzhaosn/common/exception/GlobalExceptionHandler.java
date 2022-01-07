@@ -16,7 +16,7 @@
 
 package com.github.jinzhaosn.common.exception;
 
-import com.github.jinzhaosn.common.ResultVo;
+import com.github.jinzhaosn.common.model.ResultVo;
 import com.github.jinzhaosn.common.enums.CommonEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,7 +125,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public ResultVo<?> handle(Exception exception) {
-        logger.error("system exception: [{}]", exception);
+        logger.error("system exception: [{}]", exception.getMessage());
         return ResultVo.from(CommonEnum.INTERNAL_SERVER_ERROR);
     }
 

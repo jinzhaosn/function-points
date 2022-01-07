@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.github.jinzhaosn.common;
+package com.github.jinzhaosn.common.model;
 
 import com.github.jinzhaosn.common.enums.IBaseStatus;
 import lombok.AllArgsConstructor;

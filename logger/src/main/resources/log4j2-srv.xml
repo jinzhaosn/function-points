@@ -31,7 +31,7 @@
         <!-- 存放路径一:通用路径,window平台 -->
         <!-- <property name="basePath">d:/logs/${logFileName}</property> -->
         <!-- 存放路径二:web工程专用,java项目没有这个变量,需要删掉,否则会报异常,这里把日志放在web项目的根目录下 -->
-        <property name="basePath">${spring:rootDir}/${logFileName}</property>
+        <property name="basePath">${spring:logRootDir}/${logFileName}</property>
         <!-- 存放路径三:web工程专用,java项目没有这个变量,需要删掉,否则会报异常,这里把日志放在tocmat的logs目录下 -->
         <!--<property name="basePath">${sys:catalina.home}/logs/${logFileName}</property>-->
 
