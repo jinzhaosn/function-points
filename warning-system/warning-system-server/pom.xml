@@ -103,6 +103,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-jdk8</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.jinzhaosn</groupId>
+            <artifactId>warning-client</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

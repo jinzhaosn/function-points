@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * .
+ * 告警记录服务
  *
  * @auther 961374431@qq.com
  * @date 2022年01月03日

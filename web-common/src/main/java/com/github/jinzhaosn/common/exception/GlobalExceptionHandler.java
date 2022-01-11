@@ -96,28 +96,6 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 业务异常处理
-     *
-     * @param bizException 业务异常
-     * @return 通用结果
-     */
-    @ExceptionHandler(value = BizException.class)
-    public ResultVo<?> handleBizException(BizException bizException) {
-        return ResultVo.from(bizException);
-    }
-
-    /**
-     * 持久层异常处理
-     *
-     * @param persistException 持久层异常
-     * @return 通用结果
-     */
-    @ExceptionHandler(value = PersistException.class)
-    public ResultVo<?> handlePersistException(PersistException persistException) {
-        return ResultVo.from(persistException);
-    }
-
-    /**
      * Exception异常
      *
      * @param exception 异常

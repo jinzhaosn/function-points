@@ -23,6 +23,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 警告记录
@@ -41,7 +42,7 @@ public class WarningRecordEntity {
     private String serviceUniqueCode; // 服务唯一编码
     private String codeSourcePath; // 代码路径
     private Integer warningLevel; // 警告等级
-    private LocalDate occurDate; // 发生日期
-    private LocalDateTime createTime; // 记录时间
+    private Date occurDate; // 发生日期
+    private Date createTime; // 记录时间
     private String problemDesc; // 错误描述
 }

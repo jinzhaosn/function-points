@@ -17,6 +17,7 @@
 package com.github.jinzhaosn.warning.model.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ import java.time.LocalDateTime;
  * @date 2022年01月03日
  */
 @Data
+@NoArgsConstructor
 public class WarningRecordDTO {
     private Long id; // 主键
     private String systemName; // 所属系统名称
@@ -36,7 +38,7 @@ public class WarningRecordDTO {
     private String serviceUniqueCode; // 服务唯一编码
     private String codeSourcePath; // 代码路径
     private Integer warningLevel; // 警告等级
-    private LocalDate date; // 发生日期
-    private LocalDateTime createTime; // 记录时间
+    private String date; // 发生日期
+    private String createTime; // 记录时间
     private String problemDesc; // 错误描述
 }
