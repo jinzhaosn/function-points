@@ -18,6 +18,7 @@ package com.github.jinzhaosn.warning.model.mapper;
 import com.github.jinzhaosn.warning.model.dto.WarningRecordDTO;
 import com.github.jinzhaosn.warning.model.entity.WarningRecordEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -39,6 +40,8 @@ public interface WarningRecordMapper {
      * @param recordDTO DTO
      * @return 实体
      */
+    @Mapping(source = "date", target = "occurDate", dateFormat = "yyyy-MM-dd")
+    @Mapping(source = "createTime", target = "createTime", dateFormat = "yyyy-MM-dd HH:mm:ss")
     WarningRecordEntity toEntity(WarningRecordDTO recordDTO);
 
     /**
