@@ -16,39 +16,39 @@
 
 package com.github.jinzhaosn.warning;
 
-import com.github.jinzhaosn.warning.client.feign.WarningSystemRecordClient;
+import com.github.jinzhaosn.warning.client.mqs.WarningSystemMQProducer;
 import com.github.jinzhaosn.warning.model.dto.WarningRecordDTO;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.stream.IntStream;
+
 
 /**
- * 警告记录客户端测试
+ * 警告系统MQ测试
  *
  * @auther 961374431@qq.com
- * @date 2022年01月11日
+ * @date 2022年01月15日
  */
 @SpringBootTest
-public class WarningSystemRecordClientTest {
-    private static final Logger logger = LoggerFactory.getLogger(WarningSystemRecordClientTest.class);
-    @Autowired
-    WarningSystemRecordClient recordClient;
+public class WarningSystemRecordMQProducerTest {
 
     /**
-     * 警告系统调用测试
+     * 测试MQ生成
      */
     @Test
-    public void warningRecordTest() {
-        logger.info("warning record test");
-
-        WarningRecordDTO recordDTO = new WarningRecordDTO();
-        recordDTO.setSystemName("zxcv");
-        recordDTO.setServiceUniqueCode("2432");
-        recordDTO.setCreateTime("2022-01-01 12:01:23");
-        recordClient.saveWarningRecords(Collections.singletonList(recordDTO));
+    public void mqProducerTest() {
+        IntStream.range(1, 10).forEach(index -> {
+            WarningRecordDTO recordDTO = new WarningRecordDTO();
+            recordDTO.setSystemName("rabbitmq");
+            recordDTO.setServiceUniqueCode("rabbit12345");
+            SimpleDateFormat sdf = new SimpleDateFormat();
+            sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+            recordDTO.setCreateTime(sdf.format(new Date()));
+            WarningSystemMQProducer.send(recordDTO);
+            System.out.println("done");
+        });
     }
 }

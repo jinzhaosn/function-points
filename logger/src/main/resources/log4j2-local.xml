@@ -29,11 +29,11 @@
         <property name="log_pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %C.%M[%L line] - %m%n</property>
 
         <!-- 日志默认输出级别 -->
-        <property name="output_log_level">DEBUG</property>
+        <property name="output_log_level">TRACE</property>
 
         <!-- ============== 控制台显示控制 ================== -->
         <!-- 控制台显示的日志最低级别 -->
-        <property name="console_print_level">DEBUG</property>
+        <property name="console_print_level">TRACE</property>
 
     </Properties>
 

@@ -1,2 +1,16 @@
 logging:
   config: classpath:log4j2-local.xml
+
+# Rabbit MQ配置
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /warning-system
+    username: jinzhaosn
+    password: jinzhaosn123
+    listener:
+      simple:
+        concurrency: 1
+        max-concurrency: 10
+        acknowledge-mode: manual
