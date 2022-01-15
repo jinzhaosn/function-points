@@ -70,9 +70,9 @@ public class WarningRecordRabbitMessageReceiver {
             boolean saveBatch = recordService.saveBatch(entities);
             logger.info("save batch result: [{}]", saveBatch);
             channel.basicAck(MapUtils.getLong(headers, AmqpHeaders.DELIVERY_TAG), false);
-        } catch (IOException exp) {
+        } catch (Exception exp) {
             logger.error("warning record listener deal exception: [{}]", exp.getMessage());
-            doSilent(() -> channel.basicNack(MapUtils.getLong(headers, AmqpHeaders.DELIVERY_TAG), false, true));
+            doSilent(() -> channel.basicNack(MapUtils.getLong(headers, AmqpHeaders.DELIVERY_TAG), false, false));
         }
     }
 }

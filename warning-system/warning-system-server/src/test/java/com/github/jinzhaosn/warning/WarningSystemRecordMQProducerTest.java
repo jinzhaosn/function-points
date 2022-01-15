@@ -19,8 +19,12 @@ package com.github.jinzhaosn.warning;
 import com.github.jinzhaosn.warning.client.mqs.WarningSystemMQProducer;
 import com.github.jinzhaosn.warning.model.dto.WarningRecordDTO;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.stream.IntStream;
+
 
 /**
  * 警告系统MQ测试
@@ -36,11 +40,15 @@ public class WarningSystemRecordMQProducerTest {
      */
     @Test
     public void mqProducerTest() {
-        WarningRecordDTO recordDTO = new WarningRecordDTO();
-        recordDTO.setSystemName("rabbitmq");
-        recordDTO.setServiceUniqueCode("rabbit12345");
-        recordDTO.setCreateTime("2022-01-15 19:53:23");
-        WarningSystemMQProducer.send(recordDTO);
-        System.out.println("done");
+        IntStream.range(1, 10).forEach(index -> {
+            WarningRecordDTO recordDTO = new WarningRecordDTO();
+            recordDTO.setSystemName("rabbitmq");
+            recordDTO.setServiceUniqueCode("rabbit12345");
+            SimpleDateFormat sdf = new SimpleDateFormat();
+            sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+            recordDTO.setCreateTime(sdf.format(new Date()));
+            WarningSystemMQProducer.send(recordDTO);
+            System.out.println("done");
+        });
     }
 }
