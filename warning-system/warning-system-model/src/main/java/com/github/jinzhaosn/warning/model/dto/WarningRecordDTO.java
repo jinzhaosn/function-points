@@ -16,11 +16,10 @@
 
 package com.github.jinzhaosn.warning.model.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * 警告记录DTO
@@ -30,6 +29,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class WarningRecordDTO {
     private Long id; // 主键
     private String systemName; // 所属系统名称

@@ -16,39 +16,27 @@
 
 package com.github.jinzhaosn.warning;
 
-import com.github.jinzhaosn.warning.client.feign.WarningSystemRecordClient;
-import com.github.jinzhaosn.warning.model.dto.WarningRecordDTO;
+import com.github.jinzhaosn.warning.client.log.RecordLoggerUtil;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
-
 /**
- * 警告记录客户端测试
+ * 警告系统工具类测试类
  *
  * @auther 961374431@qq.com
- * @date 2022年01月11日
+ * @date 2022年01月16日
  */
 @SpringBootTest(classes = {WarningSystemApplication.class})
-public class WarningSystemRecordClientTest {
-    private static final Logger logger = LoggerFactory.getLogger(WarningSystemRecordClientTest.class);
-    @Autowired
-    WarningSystemRecordClient recordClient;
+public class WarningSystemRecordUtilTest {
+    private static final Logger logger = LoggerFactory.getLogger(WarningSystemRecordUtilTest.class);
 
     /**
-     * 警告系统调用测试
+     * 警告记录工具类
      */
     @Test
-    public void warningRecordTest() {
-        logger.info("warning record test");
-
-        WarningRecordDTO recordDTO = new WarningRecordDTO();
-        recordDTO.setSystemName("zxcv");
-        recordDTO.setServiceUniqueCode("2432");
-        recordDTO.setCreateTime("2022-01-01 12:01:23");
-        recordClient.saveWarningRecords(Collections.singletonList(recordDTO));
+    public void recordUtilTest() {
+        RecordLoggerUtil.INSTANCE.debug("hell world");
     }
 }

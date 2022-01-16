@@ -12,3 +12,10 @@ spring:
     username: root
     password: jinzhaosn123
 
+# 服务名称
+service:
+  position:
+    systemName: Function-Points-System
+    serviceGroup: Warning-System
+    serviceName: ${spring.application.name}
+    serverPort: ${server.port}
