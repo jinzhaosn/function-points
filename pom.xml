@@ -21,6 +21,8 @@
         <module>logger</module>
         <module>web-common</module>
         <module>warning-system/warning-system-model</module>
+        <module>data-pusher/data-service</module>
+        <module>data-pusher/data-web</module>
     </modules>
 
     <properties>
