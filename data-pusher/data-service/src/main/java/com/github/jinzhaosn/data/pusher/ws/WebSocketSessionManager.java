@@ -14,28 +14,14 @@
  * limitations under the License.
  */
 
-package com.github.jinzhaosn.data.pusher.config;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+package com.github.jinzhaosn.data.pusher.ws;
 
 /**
- * Websocket 配置
+ * Websocket 会话管理器
  *
  * @auther 961374431@qq.com
- * @date 2022年01月21日
+ * @date 2022年01月28日
  */
-@EnableWebSocket
-public class WebsocketConfig {
+public class WebSocketSessionManager {
 
-    /**
-     * 服务终端导出器
-     *
-     * @return 服务终端
-     */
-    @Bean
-    public ServerEndpointExporter serverEndpointExporter() {
-        return new ServerEndpointExporter();
-    }
 }

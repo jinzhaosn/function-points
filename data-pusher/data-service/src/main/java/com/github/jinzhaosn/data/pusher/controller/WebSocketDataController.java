@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-package com.github.jinzhaosn.warning.constant;
+package com.github.jinzhaosn.data.pusher.controller;
+
+import org.springframework.stereotype.Controller;
 
 /**
- * 警告系统MQ常量
+ * Websocket 数据Controller
  *
  * @auther 961374431@qq.com
- * @date 2022年01月14日
+ * @date 2022年01月25日
  */
-public interface WarningSystemRabbitMQConstant {
+@Controller
+public class WebSocketDataController {
 
-    /** Queue名称 **/
-    String QUEUE_NAME = "Warning-System-Log-Queue";
-
-    /** Exchange名称 **/
-    String EXCHANGE_TOPIC_NAME = "Warning-System-Topic-Exchange";
-
-    /** Binding **/
-    String BINDING_ROUTING_KEY = "Warning-System.Log.#";
 }
