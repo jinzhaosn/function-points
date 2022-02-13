@@ -14,22 +14,15 @@
  * limitations under the License.
  */
 
-package com.github.jinzhaosn.warning.constant;
+package com.github.jinzhaosn.data.pusher.ws;
+
+import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
 /**
- * 警告系统MQ常量
+ * 握手处理器
  *
  * @auther 961374431@qq.com
- * @date 2022年01月14日
+ * @date 2022年02月12日
  */
-public interface WarningSystemRabbitMQConstant {
-
-    /** Queue名称 **/
-    String QUEUE_NAME = "Warning-System-Log-Queue";
-
-    /** Exchange名称 **/
-    String EXCHANGE_TOPIC_NAME = "Warning-System-Topic-Exchange";
-
-    /** Binding **/
-    String BINDING_ROUTING_KEY = "Warning-System.Log.#";
+public class CustomHandshakeHandler extends DefaultHandshakeHandler {
 }

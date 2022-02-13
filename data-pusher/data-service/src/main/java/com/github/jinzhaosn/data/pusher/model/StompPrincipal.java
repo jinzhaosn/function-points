@@ -14,22 +14,29 @@
  * limitations under the License.
  */
 
-package com.github.jinzhaosn.warning.constant;
+package com.github.jinzhaosn.data.pusher.model;
+
+import java.security.Principal;
 
 /**
- * 警告系统MQ常量
+ * Principal
  *
  * @auther 961374431@qq.com
- * @date 2022年01月14日
+ * @date 2022年02月12日
  */
-public interface WarningSystemRabbitMQConstant {
+public class StompPrincipal implements Principal {
+    private String name;
 
-    /** Queue名称 **/
-    String QUEUE_NAME = "Warning-System-Log-Queue";
+    public StompPrincipal(String name) {
+        this.name = name;
+    }
 
-    /** Exchange名称 **/
-    String EXCHANGE_TOPIC_NAME = "Warning-System-Topic-Exchange";
+    @Override
+    public String getName() {
+        return name;
+    }
 
-    /** Binding **/
-    String BINDING_ROUTING_KEY = "Warning-System.Log.#";
+    public void setName(String name) {
+        this.name = name;
+    }
 }
