@@ -16,12 +16,30 @@
 
 package com.github.jinzhaosn.data.pusher.ws;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
 /**
- * Websocket 会话管理器
+ * Session Holder
  *
  * @auther 961374431@qq.com
- * @date 2022年01月28日
+ * @date 2022年02月10日
  */
-public class WebSocketSessionManager {
-    
+public class SessionHolder {
+    private static final Set<String> sessionCache = new CopyOnWriteArraySet<>();
+
+    public static void addSession(String sessionId) {
+        sessionCache.add(sessionId);
+    }
+
+    public static boolean remove(String sessionId) {
+        return sessionCache.remove(sessionId);
+    }
+
+    public static List<String> getSessions() {
+        return Collections.unmodifiableList(new ArrayList<>(sessionCache));
+    }
 }

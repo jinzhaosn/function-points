@@ -19,9 +19,17 @@ package com.github.jinzhaosn.data.pusher.ws;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import org.springframework.web.socket.messaging.SessionSubscribeEvent;
+import org.springframework.web.socket.messaging.SessionUnsubscribeEvent;
+
+import java.security.Principal;
 
 /**
  * Websocket 事件监听器
@@ -40,7 +48,13 @@ public class WebSocketEventListener {
      */
     @EventListener
     public void handleSessionConnected(SessionConnectedEvent event) {
-        logger.info("session connected: [{}]", event.getSource());
+        logger.info("session connected: [{}]", event);
+        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(event.getMessage());
+        Principal user = accessor.getUser();
+        MessageHeaders headers = accessor.getMessageHeaders();
+        logger.info("headers: [{}]", headers);
+        String sessionId = accessor.getSessionId();
+        SessionHolder.addSession(sessionId);
     }
 
     /**
@@ -50,6 +64,16 @@ public class WebSocketEventListener {
      */
     @EventListener
     public void handleSessionDisconnect(SessionDisconnectEvent event) {
-        logger.info("session disconnect: [{}]", event.getSessionId());
+        logger.info("session disconnect: [{}]", event);
+    }
+
+    @EventListener
+    public void handleSubscribe(SessionSubscribeEvent event) {
+        logger.info("session subscribe: [{}]", event);
+    }
+
+    @EventListener
+    public void handleUnsubscribe(SessionUnsubscribeEvent event) {
+        logger.info("session unsubscribe: [{}]", event);
     }
 }

@@ -14,14 +14,29 @@
  * limitations under the License.
  */
 
-package com.github.jinzhaosn.data.pusher.ws;
+package com.github.jinzhaosn.data.pusher.model;
+
+import java.security.Principal;
 
 /**
- * Websocket 会话管理器
+ * Principal
  *
  * @auther 961374431@qq.com
- * @date 2022年01月28日
+ * @date 2022年02月12日
  */
-public class WebSocketSessionManager {
-    
+public class StompPrincipal implements Principal {
+    private String name;
+
+    public StompPrincipal(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

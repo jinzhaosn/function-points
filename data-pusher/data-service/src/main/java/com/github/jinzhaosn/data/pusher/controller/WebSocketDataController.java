@@ -16,7 +16,18 @@
 
 package com.github.jinzhaosn.data.pusher.controller;
 
+import com.github.jinzhaosn.data.pusher.model.ChatMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
+
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Websocket 数据Controller
@@ -26,5 +37,29 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class WebSocketDataController {
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketDataController.class);
 
+    @MessageMapping("/chat.sendMessage")
+    @SendToUser("/queue/notice")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        logger.info("send message: [{}]", chatMessage);
+        try {
+            // chatMessage.setContent(String.format(Locale.ROOT, "current time: [%s]", new Date()));
+            // chatMessage.setType(ChatMessage.MessageType.CHAT);
+            // chatMessage.setSender("jinzhaosn");
+        } catch (Exception e) {
+            logger.error("send message exception: [{}]", e.getMessage());
+        }
+        return chatMessage;
+    }
+
+    @MessageMapping("/chat.addUser")
+    public void addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        logger.info("add User: [{}]", chatMessage);
+        try {
+            headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        } catch (Exception e) {
+            logger.error("add User exception: [{}]", e.getMessage());
+        }
+    }
 }
