@@ -21,13 +21,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Websocket 数据Controller
@@ -44,9 +41,6 @@ public class WebSocketDataController {
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         logger.info("send message: [{}]", chatMessage);
         try {
-            // chatMessage.setContent(String.format(Locale.ROOT, "current time: [%s]", new Date()));
-            // chatMessage.setType(ChatMessage.MessageType.CHAT);
-            // chatMessage.setSender("jinzhaosn");
         } catch (Exception e) {
             logger.error("send message exception: [{}]", e.getMessage());
         }

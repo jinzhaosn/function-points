@@ -18,13 +18,9 @@ package com.github.jinzhaosn.data.pusher.job;
 
 import com.github.jinzhaosn.common.schedule.AbstractScheduleJob;
 import com.github.jinzhaosn.data.pusher.model.ChatMessage;
-import com.github.jinzhaosn.data.pusher.ws.SessionHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.MessageHeaders;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessageType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
@@ -32,9 +28,7 @@ import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
-import java.security.Principal;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 

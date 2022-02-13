@@ -18,33 +18,30 @@ package com.github.jinzhaosn.data.pusher.ws;
 
 import com.github.jinzhaosn.data.pusher.model.StompPrincipal;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
-import org.springframework.cglib.beans.BeanMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 /**
- * .
+ * Channel拦截器
  *
  * @auther 961374431@qq.com
  * @date 2022年02月13日
  */
 public class InboundChannelInterceptor implements ChannelInterceptor {
+    private static final Logger logger = LoggerFactory.getLogger(InboundChannelInterceptor.class);
 
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
         if (StompCommand.CONNECT.equals(accessor.getCommand())) {
             List<String> usernames = accessor.getNativeHeader("username");
-            // Object rawObj = message.getHeaders().get(SimpMessageHeaderAccessor.NATIVE_HEADERS);
             if (!CollectionUtils.isEmpty(usernames)) {
                 accessor.setUser(new StompPrincipal(usernames.get(0)));
             }
