@@ -20,10 +20,10 @@ import com.github.jinzhaosn.common.util.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.context.event.ApplicationPreparedEvent;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.Topic;
@@ -40,17 +40,19 @@ import java.util.List;
  * @date 2022年02月13日
  */
 @Configuration
-@ConditionalOnBean(RedisMessageListenerContainer.class)
-public class RedisMessageListenerRegister implements ApplicationListener<ApplicationPreparedEvent> {
+@ConditionalOnProperty(value = "spring.redis.listeners", havingValue = "true")
+public class RedisMessageListenerRegister implements ApplicationListener<ContextRefreshedEvent> {
     private static final Logger logger = LoggerFactory.getLogger(RedisMessageListenerRegister.class);
     private static final String LISTENER_METHOD = "handleMessage";
     @Autowired
     RedisMessageListenerContainer container;
 
     @Override
-    public void onApplicationEvent(ApplicationPreparedEvent event) {
+    public void onApplicationEvent(ContextRefreshedEvent event) {
         logger.info("Redis message listener register on application event start");
-        registerListenMessageHandlers();
+        if (event.getApplicationContext().getParent() == null) {
+            registerListenMessageHandlers();
+        }
     }
 
     /**
@@ -66,6 +68,8 @@ public class RedisMessageListenerRegister implements ApplicationListener<Applica
             MessageListenerAdapter adapter = new MessageListenerAdapter(handler, LISTENER_METHOD);
             //消息的反序列化方式
             adapter.setSerializer(new Jackson2JsonRedisSerializer<>(handler.getMessageType()));
+            adapter.afterPropertiesSet();
+
             container.addMessageListener(adapter, handler.getTopics());
         }
     }
