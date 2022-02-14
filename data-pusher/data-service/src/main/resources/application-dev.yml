@@ -1,3 +1,10 @@
 logging:
   config: classpath:log4j2-local.xml
 
+# 缓存配置
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    # 监听事件处理
+    listeners: false

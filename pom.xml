@@ -22,7 +22,6 @@
         <module>web-common</module>
         <module>warning-system/warning-system-model</module>
         <module>data-pusher/data-service</module>
-        <module>data-pusher/data-web</module>
     </modules>
 
     <properties>
@@ -39,6 +38,8 @@
         <spring.cloud.openfeign.version>3.1.0</spring.cloud.openfeign.version>
         <spring.cloud.loadbalancer.version>3.1.0</spring.cloud.loadbalancer.version>
         <spring.boot.amqp.version>2.6.2</spring.boot.amqp.version>
+        <ehcache.version>3.8.1</ehcache.version>
+        <fastjson.version>1.2.79</fastjson.version>
     </properties>
 
     <dependencyManagement>
@@ -173,6 +174,17 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-loadbalancer</artifactId>
                 <version>${spring.cloud.loadbalancer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>${ehcache.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
