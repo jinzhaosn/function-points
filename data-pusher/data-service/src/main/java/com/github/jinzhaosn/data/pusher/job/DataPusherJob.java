@@ -46,19 +46,32 @@ public class DataPusherJob extends AbstractScheduleJob {
     @Autowired
     private SimpUserRegistry userRegistry;
 
+    /**
+     * 调度
+     */
     @Override
     public void doSchedule() {
         ChatMessage message = new ChatMessage();
         message.setType(ChatMessage.MessageType.CHAT);
         message.setSender("system");
+
         Set<SimpUser> users = userRegistry.getUsers();
+        logger.info("users size: [{}]", users.size());
         for (SimpUser user : users) {
             String name = user.getName();
             message.setContent(String.format(Locale.ROOT, "system to [%s] current time: [%s]", name, new Date()));
+            logger.info("schedule message: [{}]", message);
+
+            // 发送
             simp.convertAndSendToUser(name, "/queue/notice", message);
         }
     }
 
+    /**
+     * CRON触发器
+     *
+     * @return 触发器
+     */
     @Override
     public Trigger getTrigger() {
         return new CronTrigger("*/30 * * * * ?");

@@ -28,6 +28,7 @@ import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Channel拦截器
@@ -38,9 +39,11 @@ import java.util.List;
 public class InboundChannelInterceptor implements ChannelInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(InboundChannelInterceptor.class);
 
+    @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-        if (StompCommand.CONNECT.equals(accessor.getCommand())) {
+        if (Objects.nonNull(accessor) && StompCommand.CONNECT.equals(accessor.getCommand())) {
+            // 获取用户名并设置用户
             List<String> usernames = accessor.getNativeHeader("username");
             if (!CollectionUtils.isEmpty(usernames)) {
                 accessor.setUser(new StompPrincipal(usernames.get(0)));
