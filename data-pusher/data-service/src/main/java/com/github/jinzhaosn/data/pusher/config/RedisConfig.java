@@ -35,7 +35,7 @@ public class RedisConfig {
     /**
      * message listener container
      */
-    @Bean
+    @Bean("redisMessageListenerContainer")
     @ConditionalOnProperty(value = "spring.redis.listeners", havingValue = "true")
     public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory){
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();

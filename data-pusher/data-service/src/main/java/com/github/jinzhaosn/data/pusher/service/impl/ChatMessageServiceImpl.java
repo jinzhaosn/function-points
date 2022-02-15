@@ -1,22 +1,22 @@
-/**
- * Copyright 2021-2022 jinzhaosn
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/*
+ *    Copyright 2021-2022 jinzhaosn
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
  */
 
-package com.github.jinzhaosn.data.pusher.ws;
+package com.github.jinzhaosn.data.pusher.service.impl;
 
-import com.github.jinzhaosn.data.pusher.model.ChatMessage;
+import com.github.jinzhaosn.data.pusher.service.ChatMessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,8 @@ import java.util.List;
  * @date 2022年02月13日
  */
 @Service
-public class ChatMessageService {
-    private static final Logger logger = LoggerFactory.getLogger(ChatMessageService.class);
+public class ChatMessageServiceImpl implements ChatMessageService {
+    private static final Logger logger = LoggerFactory.getLogger(ChatMessageServiceImpl.class);
     @Autowired
     SimpMessagingTemplate messagingTemplate;
 
@@ -43,8 +43,9 @@ public class ChatMessageService {
      * @param topic    广播地址
      * @param messages 消息
      */
-    public void broadcastTo(String topic, List<ChatMessage> messages) {
-        for (ChatMessage message : messages) {
+    @Override
+    public void broadcastTo(String topic, List<Object> messages) {
+        for (Object message : messages) {
             broadcastTo(topic, message);
         }
     }
@@ -55,7 +56,8 @@ public class ChatMessageService {
      * @param topic   广播地址
      * @param message 消息
      */
-    public void broadcastTo(String topic, ChatMessage message) {
+    @Override
+    public void broadcastTo(String topic, Object message) {
         try {
             messagingTemplate.convertAndSend(topic, message);
         } catch (Exception exp) {
@@ -70,7 +72,8 @@ public class ChatMessageService {
      * @param dest     目标地址
      * @param message  消息
      */
-    public void sendToUser(String username, String dest, ChatMessage message) {
+    @Override
+    public void sendToUser(String username, String dest, Object message) {
         try {
             messagingTemplate.convertAndSendToUser(username, dest, message);
         } catch (Exception exp) {
