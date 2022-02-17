@@ -1,10 +1,26 @@
 logging:
   config: classpath:log4j2-local.xml
 
-# 缓存配置
 spring:
+  # 缓存配置
   redis:
     host: 127.0.0.1
     port: 6379
     # 监听事件处理
     listeners: true
+
+  # Rabbit MQ配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /warning-system
+    username: jinzhaosn
+    password: jinzhaosn123
+    listener:
+      simple:
+        concurrency: 1
+        max-concurrency: 10
+        acknowledge-mode: manual
+        default-requeue-rejected: false
+        retry:
+          enabled: true
