@@ -13,7 +13,7 @@ spring:
   rabbitmq:
     host: 127.0.0.1
     port: 5672
-    virtual-host: /warning-system
+    virtual-host: /chat-system
     username: jinzhaosn
     password: jinzhaosn123
     listener:
