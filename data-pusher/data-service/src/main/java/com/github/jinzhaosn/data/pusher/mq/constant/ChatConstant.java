@@ -29,6 +29,6 @@ public interface ChatConstant {
     /** 绑定 **/
     String CHAT_TOPIC_BINDING_ROUTING_KEY = "chat-topic-routing-key";
 
-    /**  **/
+    /** 交流队列 **/
     String CHAT_TOPIC_QUEUE_NAME = "chat-topic-queue";
 }
