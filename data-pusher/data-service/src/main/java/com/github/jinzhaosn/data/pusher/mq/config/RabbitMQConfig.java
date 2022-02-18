@@ -58,7 +58,7 @@ public class RabbitMQConfig {
      * @return Exchange
      */
     @Bean
-    public Exchange warningSystemExchange() {
+    public Exchange chatExchange() {
         return ExchangeBuilder.topicExchange(CHAT_TOPIC_EXCHANGE_NAME).durable(true).build();
     }
 
@@ -68,7 +68,7 @@ public class RabbitMQConfig {
      * @return 队列对象
      */
     @Bean
-    public Queue warningSystemQueue() {
+    public Queue chatQueue() {
         return QueueBuilder.durable(CHAT_TOPIC_QUEUE_NAME).build();
     }
 
@@ -78,8 +78,8 @@ public class RabbitMQConfig {
      * @return 绑定对象
      */
     @Bean
-    public Binding warningSystemBinding(Exchange warningSystemExchange, Queue warningSystemQueue) {
-        return BindingBuilder.bind(warningSystemQueue)
-                .to(warningSystemExchange).with(CHAT_TOPIC_BINDING_ROUTING_KEY).noargs();
+    public Binding chatBinding(Exchange chatExchange, Queue chatQueue) {
+        return BindingBuilder.bind(chatQueue)
+                .to(chatExchange).with(CHAT_TOPIC_BINDING_ROUTING_KEY).noargs();
     }
 }
