@@ -22,6 +22,7 @@ import com.rabbitmq.client.Channel;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Header;
@@ -52,7 +53,7 @@ public class ChatMessageMqConsumer {
      * @param deliveryTag tag
      * @param channel     通道
      */
-    @RabbitListener(queues = {CHAT_TOPIC_QUEUE_NAME})
+    @RabbitListener(queues = {CHAT_TOPIC_QUEUE_NAME}, ackMode = "MANUAL")
     public void listenChatMessage(
             @Payload ChatMessage message, @Header("toUser")String toUser, @Header("toSubscribe") String toSubscribe,
             @Header(DELIVERY_TAG) Long deliveryTag, Channel channel) {
