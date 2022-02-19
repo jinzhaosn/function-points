@@ -16,6 +16,7 @@
 
 package com.github.jinzhaosn.data.pusher.mq.config;
 
+import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Exchange;
@@ -25,6 +26,8 @@ import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -40,7 +43,9 @@ import static com.github.jinzhaosn.data.pusher.mq.constant.ChatConstant.CHAT_TOP
  */
 @Configuration
 @EnableRabbit
-public class RabbitMQConfig {
+public class RabbitMQConfig implements InitializingBean {
+    @Autowired
+    AmqpAdmin amqpAdmin;
 
     /**
      * Jackson2
@@ -57,8 +62,7 @@ public class RabbitMQConfig {
      *
      * @return Exchange
      */
-    @Bean
-    public Exchange warningSystemExchange() {
+    public Exchange chatExchange() {
         return ExchangeBuilder.topicExchange(CHAT_TOPIC_EXCHANGE_NAME).durable(true).build();
     }
 
@@ -67,8 +71,7 @@ public class RabbitMQConfig {
      *
      * @return 队列对象
      */
-    @Bean
-    public Queue warningSystemQueue() {
+    public Queue chatQueue() {
         return QueueBuilder.durable(CHAT_TOPIC_QUEUE_NAME).build();
     }
 
@@ -77,9 +80,21 @@ public class RabbitMQConfig {
      *
      * @return 绑定对象
      */
-    @Bean
-    public Binding warningSystemBinding(Exchange warningSystemExchange, Queue warningSystemQueue) {
-        return BindingBuilder.bind(warningSystemQueue)
-                .to(warningSystemExchange).with(CHAT_TOPIC_BINDING_ROUTING_KEY).noargs();
+    public Binding chatBinding(Exchange chatExchange, Queue chatQueue) {
+        return BindingBuilder.bind(chatQueue)
+                .to(chatExchange).with(CHAT_TOPIC_BINDING_ROUTING_KEY).noargs();
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        init();
+    }
+
+    private void init() {
+        Exchange exchange = chatExchange();
+        Queue queue = chatQueue();
+        amqpAdmin.declareExchange(exchange);
+        amqpAdmin.declareQueue(queue);
+        amqpAdmin.declareBinding(chatBinding(exchange, queue));
     }
 }
