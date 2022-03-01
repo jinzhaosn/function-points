@@ -32,4 +32,13 @@ public interface WarningSystemRabbitMQConstant {
 
     /** Binding **/
     String BINDING_ROUTING_KEY = "Warning-System.Log.#";
+
+    /** 过期时间 **/
+    String H_MESSAGE_TTL = "x-message-ttl";
+
+    /** 死信Exchange **/
+    String H_DEAD_LETTER_EXCHANGE = "x-dead-letter-exchange";
+
+    /** 死信队列路由key **/
+    String H_DEAD_LETTER_QUEUE = "x-dead-letter-routing-key";
 }
